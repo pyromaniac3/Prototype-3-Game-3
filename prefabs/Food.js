@@ -25,5 +25,6 @@ class Food extends Phaser.GameObjects.Sprite {
         console.log("Food clicked");
         // Call the enter method associated with the size state
         this.sizeState.enter();
+        
     }
 }

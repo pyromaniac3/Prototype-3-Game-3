@@ -4,13 +4,14 @@ class Room extends Phaser.Scene{
     }
     preload(){
         this.load.image("food", "./assets/food.png");
-      
+        // add in background
+        // add in doors
 
     }
 
     create(){
 
-        // food to eat that will make you big,small, or no effect
+        // add in player sprite
         let player = this.add.rectangle(400,200,100,100, 0x7D7EEC)
       
         
@@ -55,13 +56,11 @@ class Room extends Phaser.Scene{
 
     update(){
 
- 
+        // add a timer for 10 seconds to choose a door and a food
+        // if when food is eaten and timer is over door gets opened and if the player isnt caught refill
+        // the food and keep going until caught 
         
 
-
-    }
-
-    Food_State_Change(){
 
     }
 }
