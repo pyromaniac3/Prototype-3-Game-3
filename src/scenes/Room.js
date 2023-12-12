@@ -10,7 +10,9 @@ class Room extends Phaser.Scene{
         // add in doors
         
         // add in player
-        this.load.image("player", "./assets/player.png");
+        this.load.image("playerNormal", "./assets/playerNormal.png");
+        this.load.image("playerSmall", "./assets/playerSmall.png");
+        this.load.image("playerBig", "./assets/playerBig.png");
     }
 
     create(){
@@ -18,8 +20,8 @@ class Room extends Phaser.Scene{
         let room = this.add.sprite(0,600,"background").setOrigin(0,1).setScale(0.5);
 
         // add in player sprite depth is to make sure its in front of the food
-        let player = this.add.sprite(50,600,"player").setOrigin(0,1).setDepth(10);
-      
+        let player = this.add.sprite(50,600,"playerNormal").setOrigin(0,1).setDepth(10);
+        
         
         //#region << PLAYER SIZE STATE >>
           this.sizeState = {
@@ -29,7 +31,8 @@ class Room extends Phaser.Scene{
                     // set the size state to big and scale the player double size
                     this.currSizeState = this.sizeState.BIG;
                     console.log("am big");
-                    player.setScale(3);// double the size
+                    player.setTexture("playerBig");
+                    //player.setScale(3);// double the size
                 }
             },
             NORMAL:{
@@ -38,7 +41,8 @@ class Room extends Phaser.Scene{
                     // set the state to normal and revert size to regular
                     this.currSizeState = this.sizeState.NORMAL;
                     console.log("am normal");
-                    player.setScale(1); // normal scale
+                    player.setTexture("playerNormal");
+                    //player.setScale(1); // normal scale
                 }
             },
             SMALL:{
@@ -47,7 +51,8 @@ class Room extends Phaser.Scene{
                     // set state to small and scale to half size
                     this.currSizeState = this.sizeState.SMALL;
                     console.log("am small")
-                    player.setScale(0.5); // half size
+                    player.setTexture("playerSmall");
+                    //player.setScale(0.5); // half size
                 }
             } 
         }   
