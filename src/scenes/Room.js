@@ -21,14 +21,24 @@ class Room extends Phaser.Scene{
 
         // add in player sprite depth is to make sure its in front of the food
         let player = this.add.sprite(50,600,"playerNormal").setOrigin(0,1).setDepth(10);
+      
+        // round counter
+        this.roundsLeft = 3;
+
+        // minute timer variable
+        this.timer = this.time.delayedCall(11000, this.onTimerComplete, [], this);
         
-        
+        // text UI
+        this.firstText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.6,-1.5);
+        this.secondText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: 'red', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.7,-2.7);
+        this.winText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: 'gold', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.7,-2.7);
+
         //#region << PLAYER SIZE STATE >>
           this.sizeState = {
             BIG:{
                 name:'big',
                 enter: () =>{
-                    // set the size state to big and scale the player double size
+                    // set the size state to big and mak player big
                     this.currSizeState = this.sizeState.BIG;
                     console.log("am big");
                     player.setTexture("playerBig");
@@ -68,12 +78,40 @@ class Room extends Phaser.Scene{
 
     }
 
+    onTimerComplete() {
+        console.log("times up!");
+    }
+
     update(){
 
         // add a timer for 10 seconds to choose a door and a food
         // if when food is eaten and timer is over door gets opened and if the player isnt caught refill
-        // the food and keep going until caught 
-        
+        // the food and keep going until caught
+
+        var remaining = this.timer.getRemainingSeconds();
+        const remainingTime = Math.floor(remaining); // round down
+
+        this.firstText.setText("Quick! They're coming!");
+        this.secondText.setText(remainingTime + " seconds remaining");
+
+        if(remainingTime == 0) {
+            this.firstText.setText("");
+            this.secondText.setText("");
+            // implement scene here where the person comes to the door
+
+            this.roundsLeft--;
+            this.timer = this.time.delayedCall(11000, this.onTimerComplete, [], this);
+            this.firstText.setText("Quick! They're coming!");
+            this.secondText.setText(remainingTime + " seconds remaining");
+
+        }
+
+        if(this.roundsLeft <= 0) {
+            this.firstText.setText("");
+            this.secondText.setText("");
+            // player wins
+            this.winText.setText("You win!");
+        }
 
 
     }
