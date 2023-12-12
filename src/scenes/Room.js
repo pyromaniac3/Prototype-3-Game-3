@@ -5,14 +5,20 @@ class Room extends Phaser.Scene{
     preload(){
         this.load.image("food", "./assets/food.png");
         // add in background
+        this.load.image("background", "./assets/hotel_lobby.png");
+        
         // add in doors
-
+        
+        // add in player
+        this.load.image("player", "./assets/player.png");
     }
 
     create(){
+        // background of the scene
+        let room = this.add.sprite(0,600,"background").setOrigin(0,1).setScale(0.5);
 
-        // add in player sprite
-        let player = this.add.rectangle(400,200,100,100, 0x7D7EEC)
+        // add in player sprite depth is to make sure its in front of the food
+        let player = this.add.sprite(50,600,"player").setOrigin(0,1).setDepth(10);
       
         
         //#region << PLAYER SIZE STATE >>
@@ -20,6 +26,7 @@ class Room extends Phaser.Scene{
             BIG:{
                 name:'big',
                 enter: () =>{
+                    // set the size state to big and scale the player double size
                     this.currSizeState = this.sizeState.BIG;
                     console.log("am big");
                     player.setScale(3);// double the size
@@ -28,6 +35,7 @@ class Room extends Phaser.Scene{
             NORMAL:{
                 name:'normal',
                 enter: () =>{
+                    // set the state to normal and revert size to regular
                     this.currSizeState = this.sizeState.NORMAL;
                     console.log("am normal");
                     player.setScale(1); // normal scale
@@ -36,6 +44,7 @@ class Room extends Phaser.Scene{
             SMALL:{
                 name:'small',
                 enter: () =>{
+                    // set state to small and scale to half size
                     this.currSizeState = this.sizeState.SMALL;
                     console.log("am small")
                     player.setScale(0.5); // half size
@@ -46,8 +55,8 @@ class Room extends Phaser.Scene{
 
         //#region << Create instances of the Food prefab >>
         const food1 = new Food(this, foodX, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL]).setScale(0.5);
-        const food2 = new Food(this, foodX +300, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL]).setScale(0.5);
-        const food3 = new Food(this, foodX +600, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL]).setScale(0.5);
+        const food2 = new Food(this, foodX +260, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL]).setScale(0.5);
+        const food3 = new Food(this, foodX +520, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL]).setScale(0.5);
         //#endregion
         
         this.sizeState.NORMAL.enter();// enter normal to start with

@@ -16,5 +16,5 @@ let config = {
 
 let game = new Phaser.Game(config);
 
-let foodX = 100; // to change where the beginning food starts
-let foodY = 400; // to change where the food lies height wise
+let foodX = 160; // to change where the beginning food starts
+let foodY = 200; // to change where the food lies height wise
