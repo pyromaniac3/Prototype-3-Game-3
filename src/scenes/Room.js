@@ -59,9 +59,9 @@ class Room extends Phaser.Scene{
         //#endregion
 
         //#region << Create instances of the Food prefab >>
-        const food1 = new Food(this, foodX, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL]).setScale(0.5);
-        const food2 = new Food(this, foodX +260, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL]).setScale(0.5);
-        const food3 = new Food(this, foodX +520, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL]).setScale(0.5);
+        const food1 = new Food(this, foodX, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL], this.player).setScale(0.5);
+        const food2 = new Food(this, foodX +260, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL], this.player).setScale(0.5);
+        const food3 = new Food(this, foodX +520, foodY, 'food', [this.sizeState.BIG,this.sizeState.SMALL,this.sizeState.NORMAL], this.player).setScale(0.5);
         //#endregion
         
         this.sizeState.NORMAL.enter();// enter normal to start with

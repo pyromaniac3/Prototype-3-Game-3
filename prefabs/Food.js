@@ -1,5 +1,5 @@
 class Food extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, sizeStateList) {
+    constructor(scene, x, y, texture, sizeStateList, player) {
         super(scene, x, y, texture);
 
         // Add the object to the scene
@@ -13,7 +13,7 @@ class Food extends Phaser.GameObjects.Sprite {
         const randomItem = this.getRandomItem(sizeStateList);
         this.sizeState = randomItem;
         // Add a pointerdown event listener for the object
-        this.on('pointerdown', this.onPointerDown, this);
+        this.on('pointerdown', this.onPointerDown(player,x,y), this);
     }
 
     getRandomItem(list) {
@@ -21,9 +21,11 @@ class Food extends Phaser.GameObjects.Sprite {
         return list[randomIndex];
     }
 
-    onPointerDown() {
+    onPointerDown(player,x,y) {
         console.log("Food clicked");
         // Call the enter method associated with the size state
+        
+
         this.sizeState.enter();
         
     }
