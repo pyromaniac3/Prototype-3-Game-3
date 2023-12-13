@@ -46,9 +46,9 @@ class Room extends Phaser.Scene{
                 enter: () =>{
                     // set the size state to big and mak player big
                     this.currSizeState = this.sizeState.BIG;
+                    this.player.setTexture("playerBig");
                     console.log("am big");
                     currentState = 'big';
-                    player.setTexture("playerBIG");
                 }
             },
             NORMAL:{
@@ -56,10 +56,9 @@ class Room extends Phaser.Scene{
                 enter: () =>{
                     // set the state to normal and revert size to regular
                     this.currSizeState = this.sizeState.NORMAL;
-                    player.setTexture("playerNormal");
+                    this.player.setTexture("playerNormal");
                     currentState = 'normal';
                     console.log("am normal");
-                    this.player.setTexture("playerNormal");
                 }
             },
             SMALL:{
@@ -67,7 +66,7 @@ class Room extends Phaser.Scene{
                 enter: () =>{
                     // set state to small and scale to half size
                     this.currSizeState = this.sizeState.SMALL;
-                    player.setTexture("playerSMALL");
+                    this.player.setTexture("playerSmall");
                     currentState = 'small';
                     console.log("am small");
                 }
