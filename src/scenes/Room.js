@@ -1,3 +1,5 @@
+let currentState = 'normal';
+let roundCount = 0;
 class Room extends Phaser.Scene{
     constructor(){
         super("roomScene");
@@ -20,8 +22,9 @@ class Room extends Phaser.Scene{
     }
 
     create(){
+        console.log(roundCount);
         // background of the scene
-        let room = this.add.sprite(0,600,"background").setOrigin(0,1).setScale(0.5);
+        let room = this.add.sprite(0,600,"background").setOrigin(0,1);
 
         // add in player sprite depth is to make sure its in front of the food
         this.player = this.add.sprite(50,600,"playerNormal").setOrigin(.5,1).setDepth(10);
@@ -32,8 +35,8 @@ class Room extends Phaser.Scene{
         this.timer = this.time.delayedCall(11000, this.onTimerComplete, [], this);
         
         // text UI
-        this.firstText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.6,-1.5);
-        this.secondText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: 'red', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.7,-2.7);
+        this.firstText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.9,-1.5);
+        this.secondText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: 'red', stroke: '#000000', strokeThickness: 4})
         this.winText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: 'gold', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.7,-2.7);
 
         //#region << PLAYER SIZE STATE >>
@@ -44,7 +47,8 @@ class Room extends Phaser.Scene{
                     // set the size state to big and mak player big
                     this.currSizeState = this.sizeState.BIG;
                     console.log("am big");
-                    this.player.setTexture("playerBig");
+                    currentState = 'big';
+                    player.setTexture("playerBIG");
                 }
             },
             NORMAL:{
@@ -52,6 +56,8 @@ class Room extends Phaser.Scene{
                 enter: () =>{
                     // set the state to normal and revert size to regular
                     this.currSizeState = this.sizeState.NORMAL;
+                    player.setTexture("playerNormal");
+                    currentState = 'normal';
                     console.log("am normal");
                     this.player.setTexture("playerNormal");
                 }
@@ -61,8 +67,9 @@ class Room extends Phaser.Scene{
                 enter: () =>{
                     // set state to small and scale to half size
                     this.currSizeState = this.sizeState.SMALL;
+                    player.setTexture("playerSMALL");
+                    currentState = 'small';
                     console.log("am small");
-                    this.player.setTexture("playerSmall");
                 }
             } 
         }   
@@ -91,6 +98,9 @@ class Room extends Phaser.Scene{
     }
 
     update(){
+        if (roundCount >= 3) {
+            this.scene.play("winScene");
+        }
         // add a timer for 10 seconds to choose a door and a food
         // if when food is eaten and timer is over door gets opened and if the player isnt caught refill
         // the food and keep going until caught
@@ -102,7 +112,9 @@ class Room extends Phaser.Scene{
             this.firstText.setText("");
             this.secondText.setText("");
             // implement scene here where the person comes to the door
-            
+            console.log(currentState);
+            this.scene.start("chefScene");
+            console.log("rounds left" + this.roundsLeft);
             this.roundsLeft--;
             this.timer = this.time.delayedCall(11000, this.onTimerComplete, [], this);
             this.firstText.setText("Quick! They're coming!");

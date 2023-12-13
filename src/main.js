@@ -11,7 +11,7 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_BOTH,  // Center the game on the screen
     },
     backgroundColor: '#FACADE', // Set the background color to a hex color code
-    scene : Room
+    scene : [Room, Chef, GameOver, Win]
 };
 
 let game = new Phaser.Game(config);
