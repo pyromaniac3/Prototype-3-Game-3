@@ -18,6 +18,7 @@ class Room extends Phaser.Scene{
     }
 
     create(){
+        console.log(roundCount);
         // background of the scene
         let room = this.add.sprite(0,600,"background").setOrigin(0,1);
 
@@ -82,7 +83,9 @@ class Room extends Phaser.Scene{
     }
 
     update(){
-
+        if (roundCount >= 3) {
+            this.scene.play("winScene");
+        }
         // add a timer for 10 seconds to choose a door and a food
         // if when food is eaten and timer is over door gets opened and if the player isnt caught refill
         // the food and keep going until caught
@@ -106,14 +109,5 @@ class Room extends Phaser.Scene{
             this.secondText.setText(remainingTime + " seconds remaining");
 
         }
-
-        if(this.roundsLeft >=3) {
-            this.firstText.setText("");
-            this.secondText.setText("");
-            // player wins
-            this.winText.setText("You win!");
-        }
-
-
     }
 }
