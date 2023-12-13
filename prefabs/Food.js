@@ -46,12 +46,4 @@ class Food extends Phaser.GameObjects.Sprite {
     off(){
         this.setActive(0);
     }
-    bite(val){
-        this.biteLevel-=1;
-        this.setAlpha(val == 0 ? 0 : 1);
-        this.setActive(val);
-    }
-    off(){
-        this.setActive(0);
-    }
 }
