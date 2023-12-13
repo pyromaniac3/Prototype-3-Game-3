@@ -28,8 +28,8 @@ class Room extends Phaser.Scene{
         this.timer = this.time.delayedCall(11000, this.onTimerComplete, [], this);
         
         // text UI
-        this.firstText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.6,-1.5);
-        this.secondText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: 'red', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.7,-2.7);
+        this.firstText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.9,-1.5);
+        this.secondText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: 'red', stroke: '#000000', strokeThickness: 4})
         this.winText = this.add.text(10, 10, '', { fontSize: '28px', fontFamily: 'Arial', fill: 'gold', stroke: '#000000', strokeThickness: 4}).setOrigin(-0.7,-2.7);
 
         //#region << PLAYER SIZE STATE >>
