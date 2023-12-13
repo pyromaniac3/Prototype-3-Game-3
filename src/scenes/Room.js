@@ -1,3 +1,5 @@
+let currentState = 'normal';
+let roundCount = 0;
 class Room extends Phaser.Scene{
     constructor(){
         super("roomScene");
@@ -10,18 +12,17 @@ class Room extends Phaser.Scene{
         // add in doors
         
         // add in player
-        this.load.image("player", "./assets/player.png");
+        this.load.image("playerSMALL", "./assets/playerSmall.png");
+        this.load.image("playerNormal", "./assets/playerNormal.png");
+        this.load.image("playerBIG", "./assets/playerBig.png");
     }
 
     create(){
         // background of the scene
-        let room = this.add.sprite(0,600,"background").setOrigin(0,1).setScale(0.5);
+        let room = this.add.sprite(0,600,"background").setOrigin(0,1);
 
         // add in player sprite depth is to make sure its in front of the food
-        let player = this.add.sprite(50,600,"player").setOrigin(0,1).setDepth(10);
-      
-        // round counter
-        this.roundsLeft = 3;
+        let player = this.add.sprite(50,600,"playerNormal").setOrigin(0,1).setDepth(10);
 
         // minute timer variable
         this.timer = this.time.delayedCall(11000, this.onTimerComplete, [], this);
@@ -39,7 +40,8 @@ class Room extends Phaser.Scene{
                     // set the size state to big and scale the player double size
                     this.currSizeState = this.sizeState.BIG;
                     console.log("am big");
-                    player.setScale(3);// double the size
+                    currentState = 'big';
+                    player.setTexture("playerBIG");
                 }
             },
             NORMAL:{
@@ -47,8 +49,9 @@ class Room extends Phaser.Scene{
                 enter: () =>{
                     // set the state to normal and revert size to regular
                     this.currSizeState = this.sizeState.NORMAL;
+                    player.setTexture("playerNormal");
+                    currentState = 'normal';
                     console.log("am normal");
-                    player.setScale(1); // normal scale
                 }
             },
             SMALL:{
@@ -56,8 +59,9 @@ class Room extends Phaser.Scene{
                 enter: () =>{
                     // set state to small and scale to half size
                     this.currSizeState = this.sizeState.SMALL;
-                    console.log("am small")
-                    player.setScale(0.5); // half size
+                    player.setTexture("playerSMALL");
+                    currentState = 'small';
+                    console.log("am small");
                 }
             } 
         }   
@@ -93,7 +97,9 @@ class Room extends Phaser.Scene{
             this.firstText.setText("");
             this.secondText.setText("");
             // implement scene here where the person comes to the door
-
+            console.log(currentState);
+            this.scene.start("chefScene");
+            console.log("rounds left" + this.roundsLeft);
             this.roundsLeft--;
             this.timer = this.time.delayedCall(11000, this.onTimerComplete, [], this);
             this.firstText.setText("Quick! They're coming!");
@@ -101,7 +107,7 @@ class Room extends Phaser.Scene{
 
         }
 
-        if(this.roundsLeft <= 0) {
+        if(this.roundsLeft >=3) {
             this.firstText.setText("");
             this.secondText.setText("");
             // player wins
